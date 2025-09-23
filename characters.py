@@ -1,5 +1,5 @@
 from __future__ import annotations
-from stdout_coloring import RED, RESET
+from stdout_coloring import RED, RESET, PURPLE
 
 
 # Base Character class
@@ -55,6 +55,7 @@ class Character:
             raise ValueError("This character has no special abilities!")
 
         chosen_special_ability: SpecialAbility = self.special_abilities[special_name]
+        print(f"{PURPLE}{self.name} uses {special_name}!{RESET}")
 
         # attack component
         if chosen_special_ability.attack_power != 0:

@@ -58,10 +58,16 @@ class GamePlay:
 
     def battle(self):
         while self.player.health > 0 and self.enemy.health > 0:
+
+            # Player turn and end check
             self.player_turn()
+            self.player.display_stats()
             if self.enemy.health <= 0:
                 return self.player  # battle ends, player wins
+
+            # Enemy turn and end check
             self.enemy_turn()
+            self.enemy.display_stats()
             if self.player.health <= 0:
                 return self.enemy  # battle ends, enemy wins
 
@@ -104,7 +110,7 @@ class GamePlay:
         print(f"{RED}\n--- Enemy's Turn ---{RESET}")
 
         # Simulate computer making a choice
-        
+
         picking_move_text = f"{RED}Enemy is picking their move.{RESET}"
         for _ in range(3):
             print(f"\r{picking_move_text}", end="", flush=True)

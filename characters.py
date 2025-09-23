@@ -121,10 +121,23 @@ class EvilWizard(Character):
             health=150,
             attack_power=15,
             special_abilities={
-                "Evil Laugh": SpecialAbility(50, 0, False),
-                "Evil Smile": SpecialAbility(0, 0, True),
+                # Both specials regen to satisfy project requirements
+                "Evil Laugh": SpecialAbility(50, 5, False),
+                "Evil Smile": SpecialAbility(0, 5, True),
             },
         )
+
+    ### NOTE: We override here to satisfy requirement of all attacks doing regen for wizard ###
+    def base_attack(self, opponent: Character):
+        """Perform basic attack for this character, dealing base level of attack power"""
+
+        opponent.health -= self.attack_power
+        print(f"{self.name} attacks {opponent.name} for {self.attack_power} damage!")
+        self.regenerate()
+        if opponent.health <= 0:
+            print(f"{opponent.name} has been defeated!")
+
+    ########################################################
 
     def regenerate(self):
         self.heal(5)

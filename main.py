@@ -10,6 +10,7 @@ from characters import (
 )
 from input_utils import wait_for_enter
 from stdout_coloring import RESET, YELLOW, BRIGHT_RED, GREEN
+import random
 
 
 class GamePlay:
@@ -27,6 +28,8 @@ class GamePlay:
         print("2. Mage")
         print("3. Archer")
         print("4. Paladin")
+        if enemy:
+            print("5. Evil Wizard")
 
         class_choice = input(f"{YELLOW}Enter the number of your class choice: {RESET}")
 
@@ -43,6 +46,8 @@ class GamePlay:
             return Archer(name)
         elif class_choice == "4":
             return Paladin(name)
+        elif enemy and class_choice == "5":
+            return EvilWizard(name)
         else:
             print(f"{BRIGHT_RED}Invalid choice. Defaulting to Warrior.{BRIGHT_RED}")
             return Warrior(name)
@@ -93,11 +98,19 @@ class GamePlay:
 
     def enemy_turn(self):
         # enemy just does base attack but will regenerate if it's a wizard
-        self.enemy.base_attack(self.player)
+        attack_type_roll = random.choice(["base_attack", "special_attack"])
+        if attack_type_roll == "base_attack":
+            self.enemy.base_attack()
+        else:
+            special_attack_roll = random.choice(
+                [spec_abil for spec_abil in self.enemy.special_abilities.keys()]
+            )
+            self.enemy.perform_special(self.player, special_attack_roll)
+
+        # If the enemy is an Evil Wizard
         if self.enemy.isinstance(EvilWizard):
             self.enemy.regenerate()
-        else:
-            pass
+
 
     def record_special_ability_choice(self) -> str:
         """Display special abilities and have player choose one via stdin"""

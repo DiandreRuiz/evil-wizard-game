@@ -97,9 +97,7 @@ class GamePlay:
                 case "1":
                     self.player.base_attack(self.enemy)
                 case "2":
-                    special_ability_choice = self.record_special_ability_choice(
-                        self.player
-                    )
+                    special_ability_choice = self.record_special_ability_choice()
                     self.player.perform_special(self.enemy, special_ability_choice)
                 case "3":
                     self.player.heal(5)

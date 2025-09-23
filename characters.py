@@ -52,19 +52,18 @@ class Character:
 
     def custom_power_attack(self, opponent: Character, custom_attack_power: int):
         """Do an attack on an opponent with a set amount of attack_power"""
-        # Check for block from opponent and make sure to reset it
         if opponent.block_next:
             opponent.block_next = False
             print()
             print(f"{YELLOW}{opponent.name} blocks {self.name}'s attack!{RESET}")
-
-        opponent.health -= custom_attack_power
-        print(
-            f"{CYAN}{self.name} ATTACKS {opponent.name} for {WHITE}{custom_attack_power}{WHITE} damage!{RESET}"
-        )
-        print()
-        if opponent.health <= 0:
-            print(f"{opponent.name} has been defeated!")
+        else:
+            opponent.health -= custom_attack_power
+            print(
+                f"{CYAN}{self.name} ATTACKS {opponent.name} for {WHITE}{custom_attack_power}{WHITE} damage!{RESET}"
+            )
+            print()
+            if opponent.health <= 0:
+                print(f"{opponent.name} has been defeated!")
 
     def perform_special(self, opponent: Character, special_name: str):
         """Act out all attributes of this character\'s chosing special ability"""

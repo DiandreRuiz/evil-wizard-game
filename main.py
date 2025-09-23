@@ -145,7 +145,9 @@ class GamePlay:
         """Display special abilities and have player choose one via stdin"""
 
         # List available abilities
-        print(f"{YELLOW}*** Your Abilities ***{RESET}")
+        print(
+            f"{YELLOW}*** {GREEN}{self.player}'s{YELLOW} Special Abilities ***{RESET}"
+        )
         special_ability_names = list(self.player.special_abilities.keys())
         for i, ability in enumerate(special_ability_names, start=1):
             print(f"{YELLOW}{i}: {ability}{RESET}")
@@ -162,6 +164,7 @@ class GamePlay:
 
             ability_choice = int(ability_choice)
             if ability_choice in range(1, len(special_ability_names) + 1):
+                print()
                 return special_ability_names[ability_choice - 1]
             else:
                 print(

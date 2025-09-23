@@ -18,7 +18,7 @@ class Character:
         # Check for block from opponent and make sure to reset it
         if opponent.block_next:
             opponent.block_next = False
-            print(f"{opponent.name} blocks {self.name}'s attack!")
+            print(f"{PURPLE}{opponent.name} blocks {self.name}'s attack!{RESET}")
 
         # if no block then carry out
         else:
@@ -45,6 +45,8 @@ class Character:
             self.health = self.max_health
         else:
             self.health += healing_power
+
+        print()
         print(f"{CYAN}{self.name} HEALS for {WHITE}{healing_power}{RESET} hp")
         print()
 
@@ -53,7 +55,7 @@ class Character:
         if opponent.block_next:
             opponent.block_next = False
             print()
-            print(f"{YELLOW}{opponent.name} blocks {self.name}'s attack!{RESET}")
+            print(f"{PURPLE}{opponent.name} blocks {self.name}'s attack!{RESET}")
         else:
             opponent.health -= custom_attack_power
             print(

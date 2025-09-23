@@ -9,7 +9,7 @@ from characters import (
     Character,
 )
 from input_utils import wait_for_enter
-from stdout_coloring import RESET, YELLOW, BRIGHT_RED, GREEN, RED
+from stdout_coloring import RESET, YELLOW, BRIGHT_RED, GREEN, RED, BRIGHT_GREEN
 import random
 import time
 
@@ -173,9 +173,14 @@ class GamePlay:
                 )
 
     def announce_winner(self):
-        print("********************************************")
-        print(f"{self.winner.name.capitalize()} WINS!!!")
-        print("********************************************")
+        if self.winner == self.player:
+            print(f"{BRIGHT_GREEN}*****************************")
+            print(f"{self.winner.name.capitalize()} WINS!!!")
+            print("********************************************")
+        else:
+            print(f"{BRIGHT_RED}*****************************")
+            print(f"{self.winner.name.capitalize()} WINS!!!")
+            print("********************************************")
 
 
 def main():

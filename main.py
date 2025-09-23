@@ -115,8 +115,12 @@ class GamePlay:
         for _ in range(3):
             print(f"\r{picking_move_text}", end="", flush=True)
             picking_move_text += f"{RED}.{RESET}"
-            time.sleep(0.5)
+            time.sleep(0.8)
 
+        print()
+        print()
+        print(f"{RED}Selection made!{RESET}")
+        time.sleep(0.5)
         print()
 
         # enemy just does base attack but will regenerate if it's a wizard

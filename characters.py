@@ -24,7 +24,7 @@ class Character:
         else:
             opponent.health -= self.attack_power
             print(
-                f"{YELLOW}{self.name} attacks {opponent.name} for {self.attack_power} damage!{RESET} {opponent.name}"
+                f"{YELLOW}{self.name} ATTACKS {opponent.name} for {self.attack_power} damage!{RESET} {opponent.name}"
             )
             if opponent.health <= 0:
                 print(f"{BRIGHT_GREEN}{opponent.name} has been defeated!{RESET}")
@@ -45,7 +45,7 @@ class Character:
             self.health = self.max_health
         else:
             self.health += healing_power
-        print(f"{CYAN}{self.name} heals for {healing_power} hp")
+        print(f"{CYAN}{self.name} HEALS for {WHITE}{healing_power}{RESET} hp")
         print(f"{CYAN}------------------------------ {RESET}")
 
     def custom_power_attack(self, opponent: Character, custom_attack_power: int):
@@ -53,7 +53,7 @@ class Character:
 
         opponent.health -= custom_attack_power
         print(
-            f"{CYAN}{self.name} attacks {opponent.name} for {WHITE}{custom_attack_power}{WHITE} damage!{RESET}"
+            f"{CYAN}{self.name} ATTACKS {opponent.name} for {WHITE}{custom_attack_power}{WHITE} damage!{RESET}"
         )
         if opponent.health <= 0:
             print(f"{opponent.name} has been defeated!")
@@ -86,7 +86,7 @@ class Character:
 
     def display_stats(self):
         print(
-            f"{BRIGHT_GREEN}{self.name}'s Stats - Health: {WHITE}{self.health}/{self.max_health}{BRIGHT_GREEN}, Attack Power: {WHITE}{self.attack_power}{RESET}"
+            f"{BRIGHT_GREEN}{self.name}'s Stats - Health: {WHITE}{self.health}{BRIGHT_GREEN}/{WHITE}{self.max_health}{BRIGHT_GREEN} Attack Power: {WHITE}{self.attack_power}{RESET}"
         )
 
 
@@ -147,7 +147,7 @@ class EvilWizard(Character):
 
         opponent.health -= self.attack_power
         print(
-            f"{YELLOW}{self.name} attacks {opponent.name} for {self.attack_power} damage!{RESET}"
+            f"{YELLOW}{self.name} ATTACKS {opponent.name} for {self.attack_power} damage!{RESET}"
         )
         self.regenerate()
         if opponent.health <= 0:

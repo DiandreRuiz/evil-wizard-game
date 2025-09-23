@@ -128,9 +128,10 @@ class GamePlay:
 def main():
     game = GamePlay(
         player=GamePlay.prompt_user_to_create_character(),
-        enemy=GamePlay.prompt_user_to_create_character(emeny=True),
+        enemy=GamePlay.prompt_user_to_create_character(enemy=True),
     )
     game.battle()
+
 
 if __name__ == "__main__":
     main()

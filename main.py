@@ -8,6 +8,8 @@ from characters import (
     EvilWizard,
     Character,
 )
+from input_utils import wait_for_enter
+from stdout_coloring import RESET, RED, GREEN, YELLOW, PURPLE, CYAN, BRIGHT_RED
 
 
 class GamePlay:
@@ -37,8 +39,8 @@ class GamePlay:
             print("Invalid choice. Defaulting to Warrior.")
             return Warrior(name)
 
-    def battle(player: Character, opponent: Character):
-        while opponent.health > 0 and player.health > 0:
+    def battle(self):
+        while self.enemy.health > 0 and self.enemy.health > 0:
             print("\n--- Your Turn ---")
             print("1. Basic Attack")
             print("2. Use Special Ability")
@@ -49,56 +51,83 @@ class GamePlay:
 
             match choice:
                 case "1":
-                    player.base_attack(opponent)
+                    self.player.base_attack(self.enemy)
                 case "2":
-                    special_ability_choice = record_special_ability_choice(player)
-                    player.perform_special(opponent, special_ability_choice.name)
+                    special_ability_choice = self.record_special_ability_choice(
+                        self.player
+                    )
+                    self.player.perform_special(self.enemy, special_ability_choice)
 
             if choice == "1":
-                player.attack(opponent)
+                self.player.base_attack(self.enemy)
             elif choice == "2":
                 pass  # Implement special abilities
             elif choice == "3":
                 pass  # Implement heal method
             elif choice == "4":
-                player.display_stats()
+                self.player.display_stats()
             else:
                 print("Invalid choice. Try again.")
 
-            if opponent.health > 0:
-                opponent.regenerate()
-                opponent.attack(player)
+    def player_turn(self):
+        """Collect player move decision and play it out"""
 
-            if player.health <= 0:
-                print(f"{player.name} has been defeated!")
-                break
+        while True:
+            print("\n--- Your Turn ---")
+            print("1. Basic Attack")
+            print("2. Use Special Ability")
+            print("3. Heal")
+            print("4. View Stats")
 
-        if opponent.health <= 0:
-            print(f"The wizard {opponent.name} has been defeated by {player.name}!")
+            choice = input("Choose an action: ")
 
+            match choice:
+                case "1":
+                    self.player.base_attack(self.enemy)
+                case "2":
+                    special_ability_choice = self.record_special_ability_choice(
+                        self.player
+                    )
+                    self.player.perform_special(self.enemy, special_ability_choice)
+                case "3":
+                    self.player.heal(5)
+                case "4":
+                    self.player.display_stats()
+                    wait_for_enter()
+                    continue
+                case _:
+                    print(
+                        f"{BRIGHT_RED}Invalid selection made for turn choice. Try again.{RESET}"
+                    )
+                    wait_for_enter()
+                    continue
 
-def record_special_ability_choice(player: Character) -> str:
-    """Display special abilities and have player choose one via stdin"""
+            return
 
-    # List available abilities
-    print("*** Your Abilities ***")
-    special_ability_names = list(player.special_abilities.keys())
-    for i, ability in enumerate(special_ability_names, start=1):
-        print(f"{i}: {ability}")
+    def record_special_ability_choice(self) -> str:
+        """Display special abilities and have player choose one via stdin"""
 
-    while True:
-        ability_choice = input("Choose an Ability: ")
+        # List available abilities
+        print(f"{YELLOW}*** Your Abilities ***{RESET}")
+        special_ability_names = list(self.player.special_abilities.keys())
+        for i, ability in enumerate(special_ability_names, start=1):
+            print(f"{YELLOW}{i}: {ability}{RESET}")
 
-        # validate numeric input
-        if not ability_choice.isdigit():
-            print("Please enter a number!")
-            continue
+        while True:
+            ability_choice = input(f"{YELLOW}Choose an Ability:{RESET} ")
 
-        ability_choice = int(ability_choice)
-        if ability_choice in range(1, len(special_ability_names) + 1):
-            return special_ability_names[ability_choice - 1]
-        else:
-            print("Invalid selection made for special ability. Try again.")
+            # validate numeric input
+            if not ability_choice.isdigit():
+                print(f"{BRIGHT_RED}Please enter a number!{RESET}")
+                continue
+
+            ability_choice = int(ability_choice)
+            if ability_choice in range(1, len(special_ability_names) + 1):
+                return special_ability_names[ability_choice - 1]
+            else:
+                print(
+                    f"{BRIGHT_RED}Invalid selection made for special ability. Try again.{RESET}"
+                )
 
 
 def main():

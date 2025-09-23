@@ -1,4 +1,5 @@
 from __future__ import annotations
+from input_utils import wait_for_enter
 
 
 # Base Character class

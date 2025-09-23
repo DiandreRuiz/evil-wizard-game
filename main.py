@@ -9,7 +9,7 @@ from characters import (
     Character,
 )
 from input_utils import wait_for_enter
-from stdout_coloring import RESET, RED, GREEN, YELLOW, PURPLE, CYAN, BRIGHT_RED
+from stdout_coloring import RESET, YELLOW, BRIGHT_RED
 
 
 class GamePlay:
@@ -17,15 +17,23 @@ class GamePlay:
         self.player = player
         self.enemy = enemy
 
-    def create_character() -> Character:
-        print("Choose your character class:")
+    @staticmethod
+    def prompt_user_to_create_character(enemy: bool = False) -> Character:
+        if enemy:
+            print("Choose enemy's character class")
+        else:
+            print("Choose your character class:")
         print("1. Warrior")
         print("2. Mage")
         print("3. Archer")
         print("4. Paladin")
 
         class_choice = input("Enter the number of your class choice: ")
-        name = input("Enter your character's name: ")
+
+        if enemy:
+            name = input("Enter your enemy's name: ")
+        else:
+            name = input("Enter your character's name: ")
 
         if class_choice == "1":
             return Warrior(name)
@@ -40,34 +48,13 @@ class GamePlay:
             return Warrior(name)
 
     def battle(self):
-        while self.enemy.health > 0 and self.enemy.health > 0:
-            print("\n--- Your Turn ---")
-            print("1. Basic Attack")
-            print("2. Use Special Ability")
-            print("3. Heal")
-            print("4. View Stats")
-
-            choice = input("Choose an action: ")
-
-            match choice:
-                case "1":
-                    self.player.base_attack(self.enemy)
-                case "2":
-                    special_ability_choice = self.record_special_ability_choice(
-                        self.player
-                    )
-                    self.player.perform_special(self.enemy, special_ability_choice)
-
-            if choice == "1":
-                self.player.base_attack(self.enemy)
-            elif choice == "2":
-                pass  # Implement special abilities
-            elif choice == "3":
-                pass  # Implement heal method
-            elif choice == "4":
-                self.player.display_stats()
-            else:
-                print("Invalid choice. Try again.")
+        while self.player.health > 0 and self.enemy.health > 0:
+            self.player_turn()
+            if self.enemy.health <= 0:
+                return self.player  # battle ends, player wins
+            self.enemy_turn()
+            if self.player.health <= 0:
+                return self.enemy  # battle ends, enemy wins
 
     def player_turn(self):
         """Collect player move decision and play it out"""
@@ -104,6 +91,14 @@ class GamePlay:
 
             return
 
+    def enemy_turn(self):
+        # enemy just does base attack but will regenerate if it's a wizard
+        self.enemy.base_attack(self.player)
+        if self.enemy.isinstance(EvilWizard):
+            self.enemy.regenerate()
+        else:
+            pass
+
     def record_special_ability_choice(self) -> str:
         """Display special abilities and have player choose one via stdin"""
 
@@ -131,10 +126,11 @@ class GamePlay:
 
 
 def main():
-    player = create_character()
-    wizard = EvilWizard("The Dark Wizard")
-    battle(player, wizard)
-
+    game = GamePlay(
+        player=GamePlay.prompt_user_to_create_character(),
+        enemy=GamePlay.prompt_user_to_create_character(emeny=True),
+    )
+    game.battle()
 
 if __name__ == "__main__":
     main()

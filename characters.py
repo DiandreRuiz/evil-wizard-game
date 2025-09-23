@@ -28,8 +28,6 @@ class Character:
                 f"{YELLOW}{self.name} ATTACKS {opponent.name} for {self.attack_power} damage!{RESET}"
             )
             print()
-            if opponent.health <= 0:
-                print(f"{BRIGHT_GREEN}{opponent.name} has been defeated!{RESET}")
 
     def block(self):
         """Cancel out the next attack from opponent"""
@@ -62,8 +60,6 @@ class Character:
                 f"{CYAN}{self.name} ATTACKS {opponent.name} for {WHITE}{custom_attack_power}{WHITE} damage!{RESET}"
             )
             print()
-            if opponent.health <= 0:
-                print(f"{opponent.name} has been defeated!")
 
     def perform_special(self, opponent: Character, special_name: str):
         """Act out all attributes of this character\'s chosing special ability"""
@@ -160,8 +156,6 @@ class EvilWizard(Character):
         )
         print()
         self.regenerate()
-        if opponent.health <= 0:
-            print(f"{opponent.name} has been defeated!")
 
     ########################################################
 

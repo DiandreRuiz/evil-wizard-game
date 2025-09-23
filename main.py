@@ -18,6 +18,7 @@ class GamePlay:
     def __init__(self, player: Character, enemy: Character):
         self.player = player
         self.enemy = enemy
+        self.winner: Character | None = None
 
     @staticmethod
     def prompt_user_to_create_character(enemy: bool = False) -> Character:
@@ -64,7 +65,7 @@ class GamePlay:
         print("------------------------------")
         time.sleep(5)
 
-    def battle(self):
+    def battle(self) -> Character:
         while self.player.health > 0 and self.enemy.health > 0:
 
             # Player turn and end check
@@ -146,7 +147,7 @@ class GamePlay:
 
         # List available abilities
         print(
-            f"{YELLOW}*** {GREEN}{self.player}'s{YELLOW} Special Abilities ***{RESET}"
+            f"{YELLOW}*** {GREEN}{self.player.name}'s{YELLOW} Special Abilities ***{RESET}"
         )
         special_ability_names = list(self.player.special_abilities.keys())
         for i, ability in enumerate(special_ability_names, start=1):
@@ -171,13 +172,19 @@ class GamePlay:
                     f"{BRIGHT_RED}Invalid selection made for special ability. Try again.{RESET}"
                 )
 
+    def announce_winner(self):
+        print("********************************************")
+        print(f"{self.winner.name.capitalize()} WINS!!!")
+        print("********************************************")
+
 
 def main():
     game = GamePlay(
         player=GamePlay.prompt_user_to_create_character(),
         enemy=GamePlay.prompt_user_to_create_character(enemy=True),
     )
-    game.battle()
+    game.winner = game.battle()
+    game.announce_winner()
 
 
 if __name__ == "__main__":

@@ -18,14 +18,14 @@ class Character:
         # Check for block from opponent and make sure to reset it
         if opponent.block_next:
             opponent.block_next = False
-            print(f"{opponent} blocks {self.name}'s attack!")
+            print(f"{opponent.name} blocks {self.name}'s attack!")
 
         # if no block then carry out
         else:
             opponent.health -= self.attack_power
             print()
             print(
-                f"{YELLOW}{self.name} ATTACKS {opponent.name} for {self.attack_power} damage!{RESET} {opponent.name}"
+                f"{YELLOW}{self.name} ATTACKS {opponent.name} for {self.attack_power} damage!{RESET}"
             )
             print()
             if opponent.health <= 0:
@@ -35,7 +35,6 @@ class Character:
         """Cancel out the next attack from opponent"""
 
         self.block_next = True
-        print()
         print(f"{CYAN}{self.name} prepares to block the next attack!{RESET}")
         print()
 
@@ -53,6 +52,11 @@ class Character:
 
     def custom_power_attack(self, opponent: Character, custom_attack_power: int):
         """Do an attack on an opponent with a set amount of attack_power"""
+        # Check for block from opponent and make sure to reset it
+        if opponent.block_next:
+            opponent.block_next = False
+            print()
+            print(f"{YELLOW}{opponent.name} blocks {self.name}'s attack!{RESET}")
 
         opponent.health -= custom_attack_power
         print(

@@ -65,13 +65,13 @@ class GamePlay:
         """Collect player move decision and play it out"""
 
         while True:
-            print(f"{GREEN}\n--- Your Turn ---")
+            print(f"{GREEN}\n--- Your Turn ---{RESET}")
             print("1. Basic Attack")
             print("2. Use Special Ability")
             print("3. Heal")
             print("4. View Stats")
 
-            choice = input(f"Choose an action: {GREEN}")
+            choice = input(f"{GREEN}Choose an action: {RESET}")
 
             match choice:
                 case "1":
@@ -108,9 +108,8 @@ class GamePlay:
             self.enemy.perform_special(self.player, special_attack_roll)
 
         # If the enemy is an Evil Wizard
-        if self.enemy.isinstance(EvilWizard):
+        if isinstance(self.enemy, EvilWizard):
             self.enemy.regenerate()
-
 
     def record_special_ability_choice(self) -> str:
         """Display special abilities and have player choose one via stdin"""

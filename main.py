@@ -56,26 +56,26 @@ class GamePlay:
             print()
             return Warrior(name)
 
+    def display_both_player_stats(self):
+        print("------------------------------")
+        print()
+        self.player.display_stats()
+        self.enemy.display_stats()
+        print("------------------------------")
+        time.sleep(5)
+
     def battle(self):
         while self.player.health > 0 and self.enemy.health > 0:
 
             # Player turn and end check
             self.player_turn()
-            print("------------------------------")
-            self.player.display_stats()
-            self.enemy.display_stats()
-            print("------------------------------")
-            time.sleep(4)
+            self.display_both_player_stats()
             if self.enemy.health <= 0:
                 return self.player  # battle ends, player wins
 
             # Enemy turn and end check
             self.enemy_turn()
-            print("------------------------------")
-            self.enemy.display_stats()
-            self.enemy.display_stats()
-            print("------------------------------")
-            time.sleep(4)
+            self.display_both_player_stats()
             if self.player.health <= 0:
                 return self.enemy  # battle ends, enemy wins
 

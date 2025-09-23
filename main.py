@@ -83,6 +83,8 @@ class GamePlay:
 
             choice = input(f"{GREEN}Choose an action: {RESET}")
 
+            time.sleep(0.8)
+
             match choice:
                 case "1":
                     self.player.base_attack(self.enemy)
@@ -115,7 +117,7 @@ class GamePlay:
         for _ in range(3):
             print(f"\r{picking_move_text}", end="", flush=True)
             picking_move_text += f"{RED}.{RESET}"
-            time.sleep(0.8)
+            time.sleep(1.2)
 
         print()
         print()
@@ -144,6 +146,8 @@ class GamePlay:
 
         while True:
             ability_choice = input(f"{YELLOW}Choose an Ability: {RESET} ")
+
+            time.sleep(0.8)
 
             # validate numeric input
             if not ability_choice.isdigit():

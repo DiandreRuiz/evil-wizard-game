@@ -24,7 +24,7 @@ class Character:
         else:
             opponent.health -= self.attack_power
             print(
-                f"{YELLOW}{self.name} attacks {opponent.name} for {self.attack_power} damage!{RESET} {opponent.name} now @ {opponent.health}hp"
+                f"{YELLOW}{self.name} attacks {opponent.name} for {self.attack_power} damage!{RESET} {opponent.name}"
             )
             if opponent.health <= 0:
                 print(f"{BRIGHT_GREEN}{opponent.name} has been defeated!{RESET}")
@@ -45,9 +45,7 @@ class Character:
             self.health = self.max_health
         else:
             self.health += healing_power
-        print(
-            f"{CYAN}{self.name} heals for {healing_power} hp -> now {RESET}{self.health}hp"
-        )
+        print(f"{CYAN}{self.name} heals for {healing_power} hp")
         print(f"{CYAN}------------------------------ {RESET}")
 
     def custom_power_attack(self, opponent: Character, custom_attack_power: int):
@@ -148,7 +146,9 @@ class EvilWizard(Character):
         """Perform basic attack for this character, dealing base level of attack power"""
 
         opponent.health -= self.attack_power
-        print(f"{self.name} attacks {opponent.name} for {self.attack_power} damage!")
+        print(
+            f"{YELLOW}{self.name} attacks {opponent.name} for {self.attack_power} damage!{RESET}"
+        )
         self.regenerate()
         if opponent.health <= 0:
             print(f"{opponent.name} has been defeated!")
@@ -158,7 +158,7 @@ class EvilWizard(Character):
     def regenerate(self):
         self.health += 5
         print(
-            f"{RED}{self.name} the evil wizard regenerates 5 health! Current health: {self.health}{RESET}"
+            f"{PURPLE}{self.name} the evil wizard regenerates 5 health! Current health: {RESET}{self.health}"
         )
 
 

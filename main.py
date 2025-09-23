@@ -105,7 +105,7 @@ class GamePlay:
 
         # Simulate computer making a choice
         
-        picking_move_text = f"{RED}Enemy is picking their move{RESET}"
+        picking_move_text = f"{RED}Enemy is picking their move.{RESET}"
         for _ in range(3):
             print(f"\r{picking_move_text}", end="", flush=True)
             picking_move_text += f"{RED}.{RESET}"
@@ -122,10 +122,6 @@ class GamePlay:
                 [spec_abil for spec_abil in self.enemy.special_abilities.keys()]
             )
             self.enemy.perform_special(self.player, special_attack_roll)
-
-        # If the enemy is an Evil Wizard
-        if isinstance(self.enemy, EvilWizard):
-            self.enemy.regenerate()
 
     def record_special_ability_choice(self) -> str:
         """Display special abilities and have player choose one via stdin"""

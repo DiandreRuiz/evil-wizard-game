@@ -176,11 +176,11 @@ class GamePlay:
         if self.winner == self.player:
             print(f"{BRIGHT_GREEN}*****************************")
             print(f"{self.winner.name.capitalize()} WINS!!!")
-            print("********************************************")
+            print(f"*****************************")
         else:
             print(f"{BRIGHT_RED}*****************************")
             print(f"{self.winner.name.capitalize()} WINS!!!")
-            print("********************************************")
+            print(f"*****************************")
 
 
 def main():

@@ -20,20 +20,20 @@ class GamePlay:
     @staticmethod
     def prompt_user_to_create_character(enemy: bool = False) -> Character:
         if enemy:
-            print("Choose enemy's character class")
+            print(f"{YELLOW}Choose enemy's character class: {RESET}")
         else:
-            print("Choose your character class:")
+            print(f"{YELLOW}Choose your character class: {RESET}")
         print("1. Warrior")
         print("2. Mage")
         print("3. Archer")
         print("4. Paladin")
 
-        class_choice = input("Enter the number of your class choice: ")
+        class_choice = input(f"{YELLOW}Enter the number of your class choice: {RESET}")
 
         if enemy:
-            name = input("Enter your enemy's name: ")
+            name = input(f"{YELLOW}Enter your enemy's name: {RESET}")
         else:
-            name = input("Enter your character's name: ")
+            name = input(f"{YELLOW}Enter your character's name: {RESET}")
 
         if class_choice == "1":
             return Warrior(name)
@@ -44,7 +44,7 @@ class GamePlay:
         elif class_choice == "4":
             return Paladin(name)
         else:
-            print("Invalid choice. Defaulting to Warrior.")
+            print(f"{BRIGHT_RED}Invalid choice. Defaulting to Warrior.{BRIGHT_RED}")
             return Warrior(name)
 
     def battle(self):

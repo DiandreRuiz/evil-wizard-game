@@ -23,9 +23,11 @@ class Character:
         # if no block then carry out
         else:
             opponent.health -= self.attack_power
+            print()
             print(
                 f"{YELLOW}{self.name} ATTACKS {opponent.name} for {self.attack_power} damage!{RESET} {opponent.name}"
             )
+            print()
             if opponent.health <= 0:
                 print(f"{BRIGHT_GREEN}{opponent.name} has been defeated!{RESET}")
 
@@ -33,8 +35,9 @@ class Character:
         """Cancel out the next attack from opponent"""
 
         self.block_next = True
+        print()
         print(f"{CYAN}{self.name} prepares to block the next attack!{RESET}")
-        print(f" ------------------------------ ")
+        print()
 
     def heal(self, healing_power: int = None):
         """Increase health of character by a set amount or 5 if not given"""
@@ -46,7 +49,7 @@ class Character:
         else:
             self.health += healing_power
         print(f"{CYAN}{self.name} HEALS for {WHITE}{healing_power}{RESET} hp")
-        print(f"{CYAN}------------------------------ {RESET}")
+        print()
 
     def custom_power_attack(self, opponent: Character, custom_attack_power: int):
         """Do an attack on an opponent with a set amount of attack_power"""
@@ -55,6 +58,7 @@ class Character:
         print(
             f"{CYAN}{self.name} ATTACKS {opponent.name} for {WHITE}{custom_attack_power}{WHITE} damage!{RESET}"
         )
+        print()
         if opponent.health <= 0:
             print(f"{opponent.name} has been defeated!")
 
@@ -69,6 +73,7 @@ class Character:
 
         chosen_special_ability: SpecialAbility = self.special_abilities[special_name]
         print(f"{PURPLE}{self.name} uses {special_name}!{RESET}")
+        print()
 
         # attack component
         if chosen_special_ability.attack_power != 0:
@@ -88,6 +93,7 @@ class Character:
         print(
             f"{BRIGHT_GREEN}{self.name}'s Stats - Health: {WHITE}{self.health}{BRIGHT_GREEN}/{WHITE}{self.max_health}{BRIGHT_GREEN} Attack Power: {WHITE}{self.attack_power}{RESET}"
         )
+        print()
 
 
 class SpecialAbility:
@@ -149,6 +155,7 @@ class EvilWizard(Character):
         print(
             f"{YELLOW}{self.name} ATTACKS {opponent.name} for {self.attack_power} damage!{RESET}"
         )
+        print()
         self.regenerate()
         if opponent.health <= 0:
             print(f"{opponent.name} has been defeated!")
@@ -160,6 +167,7 @@ class EvilWizard(Character):
         print(
             f"{PURPLE}{self.name} the evil wizard regenerates 5 health! Current health: {RESET}{self.health}"
         )
+        print()
 
 
 # Create Archer class

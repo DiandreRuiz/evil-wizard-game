@@ -62,12 +62,14 @@ class GamePlay:
             # Player turn and end check
             self.player_turn()
             self.player.display_stats()
+            time.sleep(4)
             if self.enemy.health <= 0:
                 return self.player  # battle ends, player wins
 
             # Enemy turn and end check
             self.enemy_turn()
             self.enemy.display_stats()
+            time.sleep(4)
             if self.player.health <= 0:
                 return self.enemy  # battle ends, enemy wins
 

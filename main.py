@@ -38,6 +38,8 @@ class GamePlay:
         else:
             name = input(f"{YELLOW}Enter your character's name: {RESET}")
 
+        print(f"{YELLOW}------------------------------ {RESET}")
+
         if class_choice == "1":
             return Warrior(name)
         elif class_choice == "2":
@@ -50,6 +52,7 @@ class GamePlay:
             return EvilWizard(name)
         else:
             print(f"{BRIGHT_RED}Invalid choice. Defaulting to Warrior.{BRIGHT_RED}")
+            print()
             return Warrior(name)
 
     def battle(self):
@@ -100,7 +103,7 @@ class GamePlay:
         # enemy just does base attack but will regenerate if it's a wizard
         attack_type_roll = random.choice(["base_attack", "special_attack"])
         if attack_type_roll == "base_attack":
-            self.enemy.base_attack()
+            self.enemy.base_attack(self.player)
         else:
             special_attack_roll = random.choice(
                 [spec_abil for spec_abil in self.enemy.special_abilities.keys()]
@@ -121,7 +124,7 @@ class GamePlay:
             print(f"{YELLOW}{i}: {ability}{RESET}")
 
         while True:
-            ability_choice = input(f"{YELLOW}Choose an Ability:{RESET} ")
+            ability_choice = input(f"{YELLOW}Choose an Ability: {RESET} ")
 
             # validate numeric input
             if not ability_choice.isdigit():

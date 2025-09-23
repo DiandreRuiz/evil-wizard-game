@@ -1,5 +1,5 @@
 from __future__ import annotations
-from input_utils import wait_for_enter
+from stdout_coloring import RED, RESET
 
 
 # Base Character class
@@ -128,7 +128,9 @@ class EvilWizard(Character):
 
     def regenerate(self):
         self.heal(5)
-        print(f"{self.name} regenerates 5 health! Current health: {self.health}")
+        print(
+            f"{RED}{self.name} the evil wizard regenerates 5 health! Current health: {self.health}{RESET}"
+        )
 
 
 # Create Archer class

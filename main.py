@@ -9,7 +9,7 @@ from characters import (
     Character,
 )
 from input_utils import wait_for_enter
-from stdout_coloring import RESET, YELLOW, BRIGHT_RED
+from stdout_coloring import RESET, YELLOW, BRIGHT_RED, GREEN
 
 
 class GamePlay:
@@ -60,13 +60,13 @@ class GamePlay:
         """Collect player move decision and play it out"""
 
         while True:
-            print("\n--- Your Turn ---")
+            print(f"{GREEN}\n--- Your Turn ---")
             print("1. Basic Attack")
             print("2. Use Special Ability")
             print("3. Heal")
             print("4. View Stats")
 
-            choice = input("Choose an action: ")
+            choice = input(f"Choose an action: {GREEN}")
 
             match choice:
                 case "1":

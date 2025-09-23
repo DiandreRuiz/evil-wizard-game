@@ -1,5 +1,5 @@
 from __future__ import annotations
-from stdout_coloring import RED, RESET, PURPLE
+from stdout_coloring import RED, RESET, PURPLE, YELLOW, BRIGHT_GREEN, CYAN, WHITE
 
 
 # Base Character class
@@ -15,16 +15,26 @@ class Character:
     def base_attack(self, opponent: Character):
         """Perform basic attack for this character, dealing base level of attack power"""
 
-        opponent.health -= self.attack_power
-        print(f"{self.name} attacks {opponent.name} for {self.attack_power} damage!")
-        if opponent.health <= 0:
-            print(f"{opponent.name} has been defeated!")
+        # Check for block from opponent and make sure to reset it
+        if opponent.block_next:
+            opponent.block_next = False
+            print(f"{opponent} blocks {self.name}'s attack!")
+
+        # if no block then carry out
+        else:
+            opponent.health -= self.attack_power
+            print(
+                f"{YELLOW}{self.name} attacks {opponent.name} for {self.attack_power} damage!{RESET} {opponent.name} now @ {opponent.health}hp"
+            )
+            if opponent.health <= 0:
+                print(f"{BRIGHT_GREEN}{opponent.name} has been defeated!{RESET}")
 
     def block(self):
         """Cancel out the next attack from opponent"""
 
         self.block_next = True
-        print(f"{self.name} prepares to block the next attack!")
+        print(f"{CYAN}{self.name} prepares to block the next attack!{RESET}")
+        print(f" ------------------------------ ")
 
     def heal(self, healing_power: int = None):
         """Increase health of character by a set amount or 5 if not given"""
@@ -35,13 +45,18 @@ class Character:
             self.health = self.max_health
         else:
             self.health += healing_power
-        print(f"{self.name} heals for {healing_power} hp -> now {self.health}hp")
+        print(
+            f"{CYAN}{self.name} heals for {healing_power} hp -> now {RESET}{self.health}hp"
+        )
+        print(f"{CYAN}------------------------------ {RESET}")
 
     def custom_power_attack(self, opponent: Character, custom_attack_power: int):
         """Do an attack on an opponent with a set amount of attack_power"""
 
         opponent.health -= custom_attack_power
-        print(f"{self.name} attacks {opponent.name} for {self.attack_power} damage!")
+        print(
+            f"{CYAN}{self.name} attacks {opponent.name} for {WHITE}{custom_attack_power}{WHITE} damage!{RESET}"
+        )
         if opponent.health <= 0:
             print(f"{opponent.name} has been defeated!")
 
@@ -69,11 +84,11 @@ class Character:
 
         # blocking component
         if chosen_special_ability.blocking:
-            self.block_next = True
+            self.block()
 
     def display_stats(self):
         print(
-            f"{self.name}'s Stats - Health: {self.health}/{self.max_health}, Attack Power: {self.attack_power}"
+            f"{BRIGHT_GREEN}{self.name}'s Stats - Health: {WHITE}{self.health}/{self.max_health}{BRIGHT_GREEN}, Attack Power: {WHITE}{self.attack_power}{RESET}"
         )
 
 
@@ -124,7 +139,7 @@ class EvilWizard(Character):
             special_abilities={
                 # Both specials regen to satisfy project requirements
                 "Evil Laugh": SpecialAbility(50, 5, False),
-                "Evil Smile": SpecialAbility(0, 5, True),
+                "Evil Smile": SpecialAbility(25, 0, True),
             },
         )
 
@@ -141,7 +156,7 @@ class EvilWizard(Character):
     ########################################################
 
     def regenerate(self):
-        self.heal(5)
+        self.health += 5
         print(
             f"{RED}{self.name} the evil wizard regenerates 5 health! Current health: {self.health}{RESET}"
         )

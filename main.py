@@ -9,8 +9,9 @@ from characters import (
     Character,
 )
 from input_utils import wait_for_enter
-from stdout_coloring import RESET, YELLOW, BRIGHT_RED, GREEN
+from stdout_coloring import RESET, YELLOW, BRIGHT_RED, GREEN, RED
 import random
+import time
 
 
 class GamePlay:
@@ -100,6 +101,16 @@ class GamePlay:
             return
 
     def enemy_turn(self):
+        print(f"{RED}\n--- Enemy's Turn ---{RESET}")
+
+        # Simulate computer making a choice
+        picking_move_text = f"{RED}Enemy is picking their move.{RESET}"
+        for _ in range(3):
+            print(picking_move_text + "\r")
+            picking_move_text = picking_move_text + f"{RED}.{RESET}"
+            time.sleep(0.5)
+        print()
+
         # enemy just does base attack but will regenerate if it's a wizard
         attack_type_roll = random.choice(["base_attack", "special_attack"])
         if attack_type_roll == "base_attack":

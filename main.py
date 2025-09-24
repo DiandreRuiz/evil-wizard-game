@@ -103,7 +103,7 @@ class GamePlay:
                 case "3":
                     self.player.heal(5)
                 case "4":
-                    self.player.display_stats()
+                    self.display_both_player_stats()
                     wait_for_enter()
                     continue
                 case _:

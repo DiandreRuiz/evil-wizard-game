@@ -1,5 +1,6 @@
 from __future__ import annotations
 from stdout_coloring import RED, RESET, PURPLE, YELLOW, BRIGHT_GREEN, CYAN, WHITE
+import random
 
 
 # Base Character class
@@ -22,7 +23,7 @@ class Character:
 
         # if no block then carry out
         else:
-            opponent.health -= self.attack_power
+            opponent.health -= self.roll_attack_power(self.attack_power)
             print()
             print(
                 f"{YELLOW}{self.name} ATTACKS {opponent.name} for {self.attack_power} damage!{RESET}"
@@ -57,7 +58,7 @@ class Character:
             print()
             print(f"{PURPLE}{opponent.name} blocks {self.name}'s attack!{RESET}")
         else:
-            opponent.health -= custom_attack_power
+            opponent.health -= self.roll_attack_power(custom_attack_power)
             print(
                 f"{CYAN}{self.name} ATTACKS {opponent.name} for {WHITE}{custom_attack_power}{WHITE} damage!{RESET}"
             )
@@ -95,6 +96,11 @@ class Character:
             f"{BRIGHT_GREEN}{self.name}'s Stats - Health: {WHITE}{self.health}{BRIGHT_GREEN}/{WHITE}{self.max_health}{BRIGHT_GREEN} Attack Power: {WHITE}{self.attack_power}{RESET}"
         )
         print()
+
+    # We use this to randomize the attack power to a certain extent for all attacks
+    # to keep things interesting
+    def roll_attack_power(self, attack_power):
+        return random.randint(attack_power // 1.5, attack_power)
 
 
 class SpecialAbility:

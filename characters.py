@@ -1,6 +1,7 @@
 from __future__ import annotations
 from stdout_coloring import RED, RESET, PURPLE, YELLOW, BRIGHT_GREEN, CYAN, WHITE
 import random
+import math
 
 
 # Base Character class
@@ -99,8 +100,21 @@ class Character:
 
     # We use this to randomize the attack power to a certain extent for all attacks
     # to keep things interesting
-    def roll_attack_power(self, attack_power):
-        return random.randint(attack_power // 1.5, attack_power)
+    def roll_attack_power(self, attack_power: int) -> int:
+        """Return a random integer in [floor(attack_power/1.5), attack_power].
+
+        Works for positive ints; clamps lower bound at 0 and ensures randint gets valid ints.
+        """
+        # ensure attack_power is an int
+        max_attack = int(attack_power)
+        # compute floored lower bound (use / then math.floor for clarity)
+        min_attack = max(0, math.floor(attack_power / 1.5))
+
+        # guard: if something odd makes min > max, clamp to max
+        if min_attack > max_attack:
+            min_attack = max_attack
+
+        return random.randint(min_attack, max_attack)
 
 
 class SpecialAbility:

@@ -24,33 +24,13 @@ class Character:
 
         # if no block then carry out
         else:
-            opponent.health -= self.roll_attack_power(self.attack_power)
+            resolved_attack_power = self.roll_attack_power(self.attack_power)
+            opponent.health -= resolved_attack_power
             print()
             print(
-                f"{YELLOW}{self.name} ATTACKS {opponent.name} for {self.attack_power} damage!{RESET}"
+                f"{YELLOW}{self.name} ATTACKS {opponent.name} for {resolved_attack_power} damage!{RESET}"
             )
             print()
-
-    def block(self):
-        """Cancel out the next attack from opponent"""
-
-        self.block_next = True
-        print(f"{CYAN}{self.name} prepares to block the next attack!{RESET}")
-        print()
-
-    def heal(self, healing_power: int = None):
-        """Increase health of character by a set amount or 5 if not given"""
-
-        if healing_power is None:
-            healing_power = 5
-        if self.health + healing_power > self.max_health:
-            self.health = self.max_health
-        else:
-            self.health += healing_power
-
-        print()
-        print(f"{CYAN}{self.name} HEALS for {WHITE}{healing_power}{RESET} hp")
-        print()
 
     def custom_power_attack(self, opponent: Character, custom_attack_power: int):
         """Do an attack on an opponent with a set amount of attack_power"""
@@ -59,9 +39,10 @@ class Character:
             print()
             print(f"{PURPLE}{opponent.name} blocks {self.name}'s attack!{RESET}")
         else:
-            opponent.health -= self.roll_attack_power(custom_attack_power)
+            resolved_attack_power = self.roll_attack_power(custom_attack_power)
+            opponent.health -= resolved_attack_power
             print(
-                f"{CYAN}{self.name} ATTACKS {opponent.name} for {WHITE}{custom_attack_power}{WHITE} damage!{RESET}"
+                f"{CYAN}{self.name} ATTACKS {opponent.name} for {WHITE}{resolved_attack_power}{WHITE} damage!{RESET}"
             )
             print()
 
@@ -91,6 +72,28 @@ class Character:
         # blocking component
         if chosen_special_ability.blocking:
             self.block()
+            
+    def block(self):
+        """Cancel out the next attack from opponent"""
+
+        self.block_next = True
+        print(f"{CYAN}{self.name} prepares to block the next attack!{RESET}")
+        print()
+
+    def heal(self, healing_power: int = None):
+        """Increase health of character by a set amount or 5 if not given"""
+
+        if healing_power is None:
+            healing_power = 5
+        if self.health + healing_power > self.max_health:
+            self.health = self.max_health
+        else:
+            self.health += healing_power
+
+        print()
+        print(f"{CYAN}{self.name} HEALS for {WHITE}{healing_power}{RESET} hp")
+        print()
+
 
     def display_stats(self):
         print(
